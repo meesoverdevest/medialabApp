@@ -13,6 +13,6 @@ Before starting with React Native development you need some tools to set up your
 
 1. ```cd``` into the project directory
 2. Running the application
-··*	Running iOS: ```react-native run-ios```
-··* Running android: ```react-native run-android```
+  *	Running iOS: ```react-native run-ios```
+  * Running android: ```react-native run-android```
 3. Running on device? Visit: [React Native running on device](https://facebook.github.io/react-native/docs/running-on-device.html)
