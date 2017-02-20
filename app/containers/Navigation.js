@@ -30,12 +30,9 @@ const Navigation = (state) => {
         <Scene key="drawer" title="Menu" component={MyDrawer}>
           <Scene key="root">
 
-          
-
-          
             <Scene key="tabbar"
               tabs
-              tabBarStyle={{ backgroundColor: '#FFFFFF'}}
+              tabBarStyle={{ backgroundColor: '#FF0000'}}
             >
               <Scene key="wijken__tab" title="Wijken" icon={TabIcon}>
                 <Scene key="wijkenScene"
@@ -46,9 +43,7 @@ const Navigation = (state) => {
               </Scene>
 
             </Scene>
-          </Scene>
-          
-         
+          </Scene>    
           
         </Scene>
       </Router>

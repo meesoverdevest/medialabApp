@@ -29,7 +29,7 @@ class App extends Component{
     persistStore(store, 
       {
         storage: AsyncStorage,
-        blacklist: ['wijken']
+        blacklist: ['wijken','user']
       }, 
       () => {
         this.setState({ rehydrated: true })

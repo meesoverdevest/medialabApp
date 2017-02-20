@@ -1,7 +1,5 @@
 import React from 'react' 
 
-import { connect } from 'react-redux'
-
 import {
   PropTypes,
   ScrollView,
@@ -18,7 +16,7 @@ let ControlPanel = (state) => {
   state.closeDrawer()
   Actions.wijkenScene()
  }
- 
+
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.controlText}>Control Panel</Text>
