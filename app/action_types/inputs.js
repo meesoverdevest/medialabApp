@@ -1,0 +1,2 @@
+export const SET_INPUT_VALUE = 'SET_INPUT_VALUE'
+export const EMPTY_INPUTS = 'EMPTY_INPUTS'

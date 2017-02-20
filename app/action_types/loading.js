@@ -1,0 +1,3 @@
+export const START_LOADING = 'START_LOADING'
+export const DONE_LOADING = 'DONE_LOADING'
+export const ERROR_LOADING = 'ERROR_LOADING'
