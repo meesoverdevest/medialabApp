@@ -1,5 +1,5 @@
 import React from 'react' 
-
+import { connect } from 'react-redux'
 import {
   PropTypes,
   ScrollView,
@@ -8,23 +8,38 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native'
-import {Actions} from 'react-native-router-flux';
+import {nextScene} from '../action_creators/scenes'
 
 let ControlPanel = (state) => {
 
- let openWijken = () => {
-  // state.closeDrawer('wijkenScene')
-  // Actions.wijkenScene()
- }
+  let setNextScene = (scene = false) => {
+    state.nextScene(scene)
+  }
 
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.controlText}>Control Panel</Text>
-      <TouchableOpacity style={styles.button} onPress={() => state.closeDrawer()}>
+      <TouchableOpacity 
+        style={styles.button} 
+        onPress={() => {
+          setNextScene()
+          state.closeDrawer()
+        }}>
         <Text>Close Drawer</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.button} onPress={() => state.closeDrawer(() => Actions.wijkenScene())}>
+      <TouchableOpacity 
+        style={styles.button} 
+        onPress={() => { 
+          setNextScene('wijkenScene'); 
+          state.closeDrawer()
+        }}>
         <Text>Wijken</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.button} onPress={() => {
+        setNextScene('home')
+        state.closeDrawer()
+      }}>
+        <Text>Home</Text>
       </TouchableOpacity>
     </ScrollView>
   )
@@ -48,5 +63,20 @@ const styles = StyleSheet.create({
     marginTop: 40,
   }
 })
+
+const mapStateToProps = (state, ownProps = {}) => {
+  return {
+    nextScene: state.scene
+  }
+}
+
+const mapDispatchToProps = {
+  nextScene
+}
+
+ControlPanel = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ControlPanel)
 
 export default ControlPanel;

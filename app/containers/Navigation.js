@@ -8,7 +8,7 @@ import WijkenScene from './WijkenScene';
 import AuthenticateScene from './AuthenticateScene';
 
 import MyDrawer from './Drawer';
-import {MKButton, MKColor} from 'react-native-material-kit';
+// import {MKButton, MKColor} from 'react-native-material-kit';
 
 import {
   StyleSheet,
@@ -19,8 +19,6 @@ import {
 const Navigation = (state) => {
 
   const TabIcon = ({ selected, title, component }) => {
-    // console.log(component);
-
       // <Text style={{backgroundColor: selected ? 'orange' : 'black', color: selected ? 'black' : 'white', padding: 20, borderRadius: 10, overflow: 'hidden' }}>{title}</Text>
       // <MKButton
       //   backgroundColor={selected ? MKColor.Lime : MKColor.Teal}
@@ -45,7 +43,7 @@ const Navigation = (state) => {
   } else {
     return (
       <Router>
-        <Scene key="drawer" title="Menu" component={MyDrawer}>
+        <Scene key="drawer" title="Menu" component={MyDrawer} open={false}>
           <Scene key="root">
 
             <Scene key="tabbar"
@@ -94,9 +92,6 @@ var styles = StyleSheet.create({
     shadowOpacity: 0.8, 
     shadowRadius: 3
   },
-  // main: {
-  //   paddingLeft: 3
-  // },
 });
 
 const mapStateToProps = (state, ownProps = {}) => {

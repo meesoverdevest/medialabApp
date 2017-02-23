@@ -1,35 +1,39 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
 import Drawer from 'react-native-drawer';
 import ControlPanel from './ControlPanel';
 import {Actions, DefaultRenderer} from 'react-native-router-flux';
 import { StatusBar } from 'react-native';
 
 let MyDrawer = (state) => {
-  
+
   let onOpen = () => {
     Actions.refresh({key:state.name, open: true})
   }
 
-  let onClose = (newView = false) => {
-    if(newView){
-      // let actionCall = 'Actions.' + newView + '();';
-      // eval(actionCall);
-      // console.log(newView);
-      // Actions.{newView}();
-      // Actions.wijkenScene();
-      // Actions.refresh({key:newView, open: true})
-      newView();
+  let onClose = () => {
+    if(state.nextScene !== false || state.nextScene !== undefined){
+      switch(state.nextScene) {
+        case "wijkenScene":
+          Actions.wijkenScene();
+          Actions.refresh({key:state.name, open: false})
+          break;
+        default:
+          Actions.homeScene();
+          Actions.refresh({key:state.name, open: false})
+          break;
+      }
     }
-    Actions.refresh({key:state.name, open: false})
   }
 
   return (
     <Drawer
       open={state.open}
       onOpen={()=>onOpen()}
+      onCloseStart={() => onCloseStart()}
       onClose={()=>onClose()}
       type="displace"
-      content={<ControlPanel closeDrawer={(newView) => onClose(newView)}/>}
+      content={<ControlPanel closeDrawer={() => onClose()}/>}
       tapToClose={true}
       openDrawerOffset={0.2}
       panCloseMask={0.2}
@@ -47,6 +51,14 @@ let MyDrawer = (state) => {
   );
 }
 
+const mapStateToProps = (state, ownProps = {}) => {
+  return {
+    nextScene: state.scene
+  }
+}
 
+MyDrawer = connect(
+  mapStateToProps
+)(MyDrawer)
 
 export default MyDrawer; 
