@@ -10,7 +10,16 @@ let MyDrawer = (state) => {
     Actions.refresh({key:state.name, open: true})
   }
 
-  let onClose = () => {
+  let onClose = (newView = false) => {
+    if(newView){
+      // let actionCall = 'Actions.' + newView + '();';
+      // eval(actionCall);
+      // console.log(newView);
+      // Actions.{newView}();
+      // Actions.wijkenScene();
+      // Actions.refresh({key:newView, open: true})
+      newView();
+    }
     Actions.refresh({key:state.name, open: false})
   }
 
@@ -20,7 +29,7 @@ let MyDrawer = (state) => {
       onOpen={()=>onOpen()}
       onClose={()=>onClose()}
       type="displace"
-      content={<ControlPanel closeDrawer={() => onClose()}/>}
+      content={<ControlPanel closeDrawer={(newView) => onClose(newView)}/>}
       tapToClose={true}
       openDrawerOffset={0.2}
       panCloseMask={0.2}

@@ -17,7 +17,7 @@ let WijkenScene = (state) => {
 	
   const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
   let dataSource = ds.cloneWithRows(rowSource)
-  
+  // https://medium.com/differential/react-native-basics-how-to-use-the-listview-component-a0ec44cf1fe8#.if25xvigb
   return (
     <ListView
       style={styles.container}

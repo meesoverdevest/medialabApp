@@ -3,10 +3,12 @@ import { connect } from 'react-redux'
 import { Router, Scene } from 'react-native-router-flux';
 import Drawer from 'react-native-drawer'
 
+import HomeScene from './HomeScene';
 import WijkenScene from './WijkenScene';
 import AuthenticateScene from './AuthenticateScene';
 
 import MyDrawer from './Drawer';
+import {MKButton, MKColor} from 'react-native-material-kit';
 
 import {
   StyleSheet,
@@ -16,9 +18,25 @@ import {
 
 const Navigation = (state) => {
 
-  const TabIcon = ({ selected, title }) => {
+  const TabIcon = ({ selected, title, component }) => {
+    // console.log(component);
+
+      // <Text style={{backgroundColor: selected ? 'orange' : 'black', color: selected ? 'black' : 'white', padding: 20, borderRadius: 10, overflow: 'hidden' }}>{title}</Text>
+      // <MKButton
+      //   backgroundColor={selected ? MKColor.Lime : MKColor.Teal}
+      //   shadowRadius={2}
+      //   shadowOffset={{width:0, height:2}}
+      //   shadowOpacity={.7}
+      //   shadowColor="black"
+
+      //   >
+      // </MKButton>
     return (
-      <Text style={{backgroundColor: selected ? 'orange' : 'black', color: selected ? 'black' : 'white', padding: 20, borderRadius: 10, overflow: 'hidden' }}>{title}</Text>
+        <Text pointerEvents="none"
+              style={{color: 'white', fontWeight: 'bold', padding: 15,}}>
+          {title}
+        </Text>
+
     );
   };
 
@@ -32,16 +50,20 @@ const Navigation = (state) => {
 
             <Scene key="tabbar"
               tabs
-              tabBarStyle={{ backgroundColor: '#FF0000'}}
+              tabBarStyle={{ backgroundColor: '#6495ed'}}
             >
-              <Scene key="wijken__tab" title="Wijken" icon={TabIcon}>
-                <Scene key="wijkenScene"
-                  component={WijkenScene}
-                  title="Wijken"
-                  initial
+              <Scene key="wijkenScene"
+                 component={WijkenScene}
+                 title="Wijken"
+                 icon={TabIcon}
+                 initial
+               />
+              
+              <Scene key="homeScene"
+                  component={HomeScene}
+                  title="Home"
+                  icon={TabIcon}
                 />
-              </Scene>
-
             </Scene>
           </Scene>    
           
@@ -49,6 +71,7 @@ const Navigation = (state) => {
       </Router>
     )
   }
+
 }
 
 var styles = StyleSheet.create({

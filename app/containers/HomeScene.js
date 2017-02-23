@@ -7,7 +7,6 @@ import {
   Button
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-// import * as MK from 'react-native-material-kit';
 
 const HomeScene = () => {
 

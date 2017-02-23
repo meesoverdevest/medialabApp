@@ -13,8 +13,8 @@ import {Actions} from 'react-native-router-flux';
 let ControlPanel = (state) => {
 
  let openWijken = () => {
-  state.closeDrawer()
-  Actions.wijkenScene()
+  // state.closeDrawer('wijkenScene')
+  // Actions.wijkenScene()
  }
 
   return (
@@ -23,7 +23,7 @@ let ControlPanel = (state) => {
       <TouchableOpacity style={styles.button} onPress={() => state.closeDrawer()}>
         <Text>Close Drawer</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.button} onPress={() => openWijken()}>
+      <TouchableOpacity style={styles.button} onPress={() => state.closeDrawer(() => Actions.wijkenScene())}>
         <Text>Wijken</Text>
       </TouchableOpacity>
     </ScrollView>
