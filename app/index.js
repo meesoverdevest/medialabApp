@@ -5,7 +5,7 @@ import reducers from './utils/reducers'
 import {persistStore} from 'redux-persist'
 
 import Loader from './components/Loader';
-import Navigation from './containers/Navigation'
+import Navigation from './containers/Navigation/Navigation'
 // Project organization
 // https://medium.com/the-react-native-log/organizing-a-react-native-project-9514dfadaa0#.7nazwy7kx
 

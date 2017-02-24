@@ -3,9 +3,9 @@ import { connect } from 'react-redux'
 import { Router, Scene } from 'react-native-router-flux';
 import Drawer from 'react-native-drawer'
 
-import HomeScene from './HomeScene';
-import WijkenScene from './WijkenScene';
-import AuthenticateScene from './AuthenticateScene';
+import HomeScene from '../HomeScene';
+import WijkenScene from '../WijkenScene';
+import AuthenticateScene from '../AuthenticateScene';
 
 import MyDrawer from './Drawer';
 
