@@ -36,7 +36,7 @@ let ControlPanel = (state) => {
         <Text>Wijken</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.button} onPress={() => {
-        setNextScene('home')
+        setNextScene('homeScene')
         state.closeDrawer()
       }}>
         <Text>Home</Text>

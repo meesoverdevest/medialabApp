@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import Drawer from 'react-native-drawer';
 import ControlPanel from './ControlPanel';
 import {Actions, DefaultRenderer} from 'react-native-router-flux';
-import { StatusBar } from 'react-native';
 
 let MyDrawer = (state) => {
 
@@ -18,8 +17,11 @@ let MyDrawer = (state) => {
           Actions.wijkenScene();
           Actions.refresh({key:state.name, open: false})
           break;
-        default:
+        case "homeScene":
           Actions.homeScene();
+          Actions.refresh({key:state.name, open: false})
+          break;
+        default:
           Actions.refresh({key:state.name, open: false})
           break;
       }
@@ -30,7 +32,6 @@ let MyDrawer = (state) => {
     <Drawer
       open={state.open}
       onOpen={()=>onOpen()}
-      onCloseStart={() => onCloseStart()}
       onClose={()=>onClose()}
       type="displace"
       content={<ControlPanel closeDrawer={() => onClose()}/>}
@@ -41,7 +42,6 @@ let MyDrawer = (state) => {
       tweenHandler={(ratio) => ({
         main: { opacity:Math.max(0.54,1-ratio) }
       })}>
-      <StatusBar hidden={true} />
       <DefaultRenderer
         navigationState={state.children[0]}
         onNavigate={state.onNavigate}

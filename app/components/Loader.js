@@ -8,6 +8,7 @@ import {
 
 // import Spinner from 'react-native-spinkit'
 import Spinner from 'react-native-loading-spinner-overlay';
+import { StatusBar } from 'react-native';
 
 const Loader = () => {
   // Loader types
@@ -15,9 +16,10 @@ const Loader = () => {
   // style={styles.spinner} isVisible={true} size={100} type='WanderingCubes' color='#3498db'
   return (
     <View style={styles.container}>
-        <Text style={styles.title}>
-          Participair
-        </Text>
+      <StatusBar hidden={true} />
+      <Text style={styles.title}>
+        Participair
+      </Text>
       <Spinner visible={true} size="large" />
     </View>
   )

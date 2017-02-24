@@ -14,8 +14,6 @@ import { arrayIfy } from '../utils/objects'
 import Row from '../components/Row';
 
 let WijkenScene = (state) => {
-  console.log(state)
-  // const closeDrawer = () => Actions.refresh({key: 'drawer', open: false})
 	let rowSource = arrayIfy(state.wijken)
 	
   const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});

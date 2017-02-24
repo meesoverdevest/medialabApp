@@ -8,7 +8,6 @@ import WijkenScene from './WijkenScene';
 import AuthenticateScene from './AuthenticateScene';
 
 import MyDrawer from './Drawer';
-// import {MKButton, MKColor} from 'react-native-material-kit';
 
 import {
   StyleSheet,
@@ -18,23 +17,13 @@ import {
 
 const Navigation = (state) => {
 
-  const TabIcon = ({ selected, title, component }) => {
-      // <Text style={{backgroundColor: selected ? 'orange' : 'black', color: selected ? 'black' : 'white', padding: 20, borderRadius: 10, overflow: 'hidden' }}>{title}</Text>
-      // <MKButton
-      //   backgroundColor={selected ? MKColor.Lime : MKColor.Teal}
-      //   shadowRadius={2}
-      //   shadowOffset={{width:0, height:2}}
-      //   shadowOpacity={.7}
-      //   shadowColor="black"
+  const TabIcon = ({ selected, title }) => {
+    let tabStyles = StyleSheet.flatten([styles.tabIcon, {backgroundColor: selected ? 'orange' : 'black'}]);
 
-      //   >
-      // </MKButton>
     return (
-        <Text pointerEvents="none"
-              style={{color: 'white', fontWeight: 'bold', padding: 15,}}>
-          {title}
-        </Text>
-
+      <Text pointerEvents="none" style={tabStyles}>
+        {title}
+      </Text>
     );
   };
 
@@ -69,7 +58,6 @@ const Navigation = (state) => {
       </Router>
     )
   }
-
 }
 
 var styles = StyleSheet.create({
@@ -92,6 +80,11 @@ var styles = StyleSheet.create({
     shadowOpacity: 0.8, 
     shadowRadius: 3
   },
+  tabIcon: {
+    color: 'white', 
+    fontWeight: 'bold', 
+    padding: 15, 
+  }
 });
 
 const mapStateToProps = (state, ownProps = {}) => {
