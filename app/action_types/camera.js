@@ -1,0 +1,1 @@
+export const SET_CAM_PROP = 'SET_CAM_PROP'

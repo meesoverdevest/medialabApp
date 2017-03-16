@@ -5,6 +5,7 @@ import Drawer from 'react-native-drawer'
 
 import HomeScene from '../HomeScene';
 import WijkenScene from '../WijkenScene';
+import ScannerScene from '../ScannerScene';
 import AuthenticateScene from '../AuthenticateScene';
 
 import MyDrawer from './Drawer';
@@ -51,6 +52,15 @@ const Navigation = (state) => {
                   title="Home"
                   icon={TabIcon}
                 />
+
+              <Scene
+                key="scannerScene"
+                direction="vertical"
+                schema="modal"
+                component={ScannerScene}
+                title="QR Scanner"
+                hideNavBar
+              />
             </Scene>
           </Scene>    
           

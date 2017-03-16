@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native'
-import {nextScene} from '../action_creators/scenes'
+import {nextScene} from '../../action_creators/scenes'
 
 let ControlPanel = (state) => {
 

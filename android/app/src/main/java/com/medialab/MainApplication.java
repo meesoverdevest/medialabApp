@@ -4,6 +4,8 @@ import android.app.Application;
 import android.util.Log;
 
 import com.facebook.react.ReactApplication;
+import com.joshblour.reactnativepermissions.ReactNativePermissionsPackage;
+import com.lwansbrough.RCTCamera.RCTCameraPackage;
 import com.github.xinthink.rnmk.ReactMaterialKitPackage;
 import com.ocetnik.timer.BackgroundTimerPackage;
 import com.facebook.react.ReactInstanceManager;
@@ -27,6 +29,8 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new ReactNativePermissionsPackage(),
+            new RCTCameraPackage(),
             new ReactMaterialKitPackage(),
             new BackgroundTimerPackage()
       );
