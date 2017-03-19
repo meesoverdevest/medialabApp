@@ -1,9 +1,13 @@
 
 import { START_LOADING, ERROR_LOADING, DONE_LOADING } from '../../action_types/loading';
-import { LOGIN, LOGIN_SUCCESS, LOGIN_ERROR } from '../../action_types/user';
+import { REGISTER, REGISTER_SUCCESS, REGISTER_ERROR } from '../../action_types/user';
+import { Actions } from 'react-native-router-flux';
 
-export const login = (name, email) => {
+import { EMPTY_INPUTS } from '../../action_types/inputs';
+
+export const register = (mail, pass) => {
 	return (dispatch) => {
+		// Actions.refresh();
 		dispatch({ type: START_LOADING })	
 		
 		// let params = {
@@ -17,26 +21,33 @@ export const login = (name, email) => {
 			// .then(response =>	response)
 			// .then(response => dispatch(login_success(response)))
 			// .catch(err => dispatch(login_error(err)));
-		return dispatch(login_success({name: name, email: email},dispatch))
+
+		// AFTER REGISTER
+		dispatch({type: EMPTY_INPUTS, keys: ["RegisterScene-name", "RegisterScene-mail", "RegisterScene-pass", "RegisterScene-neighbourhood"]});
+		return dispatch(register_success(
+					{email: mail, pass: pass},
+					dispatch
+				)
+			);
 	}
 }
 
-function login_success(data, dispatch){
+function register_success(data, dispatch){
 	dispatch({type: DONE_LOADING})
 	// console.log(data);
 	
 	return {
-		type: LOGIN_SUCCESS,
+		type: REGISTER_SUCCESS,
 		data: data
 	}
 }
 
-function login_error(data, dispatch){
+function register_error(data, dispatch){
 	dispatch({type: DONE_LOADING})
 	console.log(data);
 	
 	return {
-		type: LOGIN_ERROR,
+		type: REGISTER_ERROR,
 		data: data
 	}
 }

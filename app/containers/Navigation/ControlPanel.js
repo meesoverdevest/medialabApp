@@ -9,6 +9,7 @@ import {
   View,
 } from 'react-native'
 import {nextScene} from '../../action_creators/scenes'
+import { logout } from '../../action_creators/user/logout'
 
 let ControlPanel = (state) => {
 
@@ -41,6 +42,11 @@ let ControlPanel = (state) => {
       }}>
         <Text>Home</Text>
       </TouchableOpacity>
+      <TouchableOpacity style={styles.button} onPress={() => {
+        state.logout()
+      }}>
+        <Text>Uitloggen</Text>
+      </TouchableOpacity>
     </ScrollView>
   )
 }
@@ -71,7 +77,8 @@ const mapStateToProps = (state, ownProps = {}) => {
 }
 
 const mapDispatchToProps = {
-  nextScene
+  nextScene,
+  logout
 }
 
 ControlPanel = connect(

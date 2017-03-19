@@ -7,15 +7,14 @@ import {
   Button,
   TextInput
 } from 'react-native';
-import { Actions } from 'react-native-router-flux';
 
-import { set_input_value } from '../action_creators/inputs'
-import { login } from '../action_creators/user/login'
-import { isObjectEmpty } from '../utils/objects'
+import { set_input_value } from '../../action_creators/inputs'
+import { login } from '../../action_creators/user/login'
+import { isObjectEmpty } from '../../utils/objects'
 
-const AuthenticateScene = (state) => {
+let AuthenticateScene = (state) => {
   const screen = 'AuthenticateScene';
-  const fieldNames = ["AuthenticateScene-size", "AuthenticateScene-pass"];
+  const fieldNames = ["AuthenticateScene-mail", "AuthenticateScene-pass"];
 
   // var nameInput = isObjectEmpty(state.inputs["AuthenticateScene-name"]) !== true ? state.inputs["AuthenticateScene-name"]["value"] : "";
   var mailInput = isObjectEmpty(state.inputs["AuthenticateScene-mail"]) !== true ? state.inputs["AuthenticateScene-mail"]["value"] : "";
@@ -32,7 +31,7 @@ const AuthenticateScene = (state) => {
       </Text>
       <TextInput key={11}
         style={styles.inputs} autoCapitalize='none'
-        onChangeText={(mail) => state.set_input_value(screen, 'mail', mail)}
+        onChangeText={(mail) => state.set_input_value(fieldNames[0], mail)}
         value={mailInput} placeholder="Your mail"
       />
       <Text style={styles.welcome}>
@@ -40,7 +39,7 @@ const AuthenticateScene = (state) => {
       </Text>
       <TextInput key={12}
         style={styles.inputs} secureTextEntry={true}
-        onChangeText={(pass) => state.set_input_value(screen, 'pass', pass)}
+        onChangeText={(pass) => state.set_input_value(fieldNames[1], pass)}
         value={passInput} 
       />
       <Button

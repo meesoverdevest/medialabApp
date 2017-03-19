@@ -5,7 +5,7 @@ function inputs(state = { }, action) {
 
   switch (action.type) {
     case SET_INPUT_VALUE:        		
-      return Object.assign({}, state, {[action.container + '-' + action.field] : {value: action.value}})
+      return Object.assign({}, state, {[action.field] : {value: action.value}})
 
     case EMPTY_INPUTS: // Empty input field values of fields specified in action.keys
     	let newState = new Object();

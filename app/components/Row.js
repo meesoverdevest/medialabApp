@@ -1,6 +1,12 @@
 
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { 
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  ListView 
+} from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
@@ -32,7 +38,6 @@ const styles = StyleSheet.create({
 });
 
 const Row = (props) => {
-  console.log(props)
 
   return (
     <View style={styles.container}>

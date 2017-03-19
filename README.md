@@ -16,3 +16,7 @@ Before starting with React Native development you need some tools to set up your
   *	Running iOS: ```react-native run-ios```
   * Running android: ```react-native run-android```
 3. Running on device? Visit: [React Native running on device](https://facebook.github.io/react-native/docs/running-on-device.html)
+
+## Useful
+
+1. When having build error when builing on android device: ```cd android/ && ./gradlew clean``` Then build again

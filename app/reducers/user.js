@@ -1,12 +1,12 @@
 
 import { AUTHENTICATE_ERROR, AUTHENTICATE_SUCCESS } from '../action_types/loading'
-import { REGISTER_SUCCESS, REGISTER_ERROR, LOGIN_ERROR, LOGIN_SUCCESS } from '../action_types/user'
+import { REGISTER_SUCCESS, REGISTER_ERROR, LOGIN_ERROR, LOGIN_SUCCESS, LOG_OUT } from '../action_types/user'
 
 function user(state = {}, action) {
   switch (action.type) {
     case REGISTER_SUCCESS:       
      		
-      return Object.assign({}, state, {'token' : action.data.token})
+      return Object.assign({}, state, {'name' : action.data.name, 'email': action.data.email})
     case REGISTER_ERROR:        		
       return state;
     case AUTHENTICATE_SUCCESS:       
@@ -18,6 +18,9 @@ function user(state = {}, action) {
     case LOGIN_SUCCESS:
       // console.log(action.data)
       return Object.assign({}, state, {'name': action.data.name, 'email': action.data.email});
+    case LOG_OUT:
+
+      return Object.assign({}, state, {'name': "", 'email': ""});
     default:
       return state;
   }

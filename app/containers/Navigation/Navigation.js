@@ -1,12 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Router, Scene } from 'react-native-router-flux';
+import { Router, Scene, Switch } from 'react-native-router-flux';
 import Drawer from 'react-native-drawer'
 
 import HomeScene from '../HomeScene';
 import WijkenScene from '../WijkenScene';
 import ScannerScene from '../ScannerScene';
-import AuthenticateScene from '../AuthenticateScene';
+import AuthenticateScene from './AuthenticateScene';
+import RegisterScene from './RegisterScene';
 
 import MyDrawer from './Drawer';
 
@@ -20,54 +21,76 @@ const Navigation = (state) => {
 
   const TabIcon = ({ selected, title }) => {
     let tabStyles = StyleSheet.flatten([styles.tabIcon, {backgroundColor: selected ? 'orange' : 'black'}]);
-
     return (
       <Text pointerEvents="none" style={tabStyles}>
         {title}
       </Text>
     );
-  };
-
-  if(!state.user.email){
-    return(<AuthenticateScene/>)
-  } else {
-    return (
-      <Router>
-        <Scene key="drawer" title="Menu" component={MyDrawer} open={false}>
-          <Scene key="root">
-
-            <Scene key="tabbar"
-              tabs
-              tabBarStyle={{ backgroundColor: '#6495ed'}}
-            >
-              <Scene key="wijkenScene"
-                 component={WijkenScene}
-                 title="Wijken"
-                 icon={TabIcon}
-                 initial
-               />
-              
-              <Scene key="homeScene"
-                  component={HomeScene}
-                  title="Home"
-                  icon={TabIcon}
-                />
-
-              <Scene
-                key="scannerScene"
-                direction="vertical"
-                schema="modal"
-                component={ScannerScene}
-                title="QR Scanner"
-                hideNavBar
-              />
-            </Scene>
-          </Scene>    
-          
-        </Scene>
-      </Router>
-    )
   }
+
+  return(
+
+    <Router>
+      <Scene key="root"
+        component={connect(state=>({profile:state.user}))(Switch)}
+        tabs={true}
+        unmountScenes
+        selector={props=>props.profile.email ? "drawer" : "tabbar"}
+        >
+
+        <Scene key="drawer" title="Menu" component={MyDrawer} open={false}>   
+          <Scene key="tabbar1"
+            tabs
+            tabBarStyle={{ backgroundColor: '#6495ed'}}
+            >
+            <Scene key="wijkenScene"
+              component={WijkenScene}
+              title="Wijken"
+              icon={TabIcon}
+              initial
+             />
+              
+            <Scene key="homeScene"
+                component={HomeScene}
+                title="Home"
+                icon={TabIcon}
+              />
+
+            <Scene
+              key="scannerScene"
+              direction="vertical"
+              schema="modal"
+              component={ScannerScene}
+              title="QR Scanner"
+              hideNavBar
+            />      
+          </Scene>
+        </Scene>
+        <Scene key="tabbar"
+          tabs
+          tabBarStyle={{ backgroundColor: '#6495ed'}}
+          >
+          <Scene key="registerScene"
+              component={RegisterScene}
+              title="Registreer"
+              icon={TabIcon}
+              initial
+            />
+
+          <Scene
+            key="authenticateScene"
+            component={AuthenticateScene}
+            title="Login"
+            direction="vertical"
+            schema="modal"
+            />
+        </Scene>
+      </Scene>    
+      
+    </Router>
+
+
+    )
 }
 
 var styles = StyleSheet.create({
