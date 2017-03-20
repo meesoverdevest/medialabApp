@@ -43,7 +43,7 @@ let AuthenticateScene = (state) => {
         value={passInput} 
       />
       <Button
-        onPress={() => state.login(mailInput, passInput)}
+        onPress={() => state.login(mailInput, passInput, fieldNames)}
         title="login"
         color="#841584"
       />

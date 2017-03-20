@@ -9,8 +9,7 @@ import { Actions } from 'react-native-router-flux';
 const InputRow = (props) => {
 
   let register = () => {
-    props.register(props.screen + '-mail', props.screen + '-pass');
-    Actions.refresh();
+    props.register(props.inputs);
   }
 
   if(props.btn !== undefined) {
@@ -92,8 +91,14 @@ const mapDispatchToProps = {
   register
 } 
 
+const mapStateToProps = (props, ownProps = {}) => {
+  return {
+    inputs: props.inputs
+  }
+}
+
 InputRow = connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(InputRow)
 

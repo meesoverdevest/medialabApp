@@ -6,7 +6,7 @@ function user(state = {}, action) {
   switch (action.type) {
     case REGISTER_SUCCESS:       
      		
-      return Object.assign({}, state, {'name' : action.data.name, 'email': action.data.email})
+      return Object.assign({}, state, {'name' : action.data.name, 'email': action.data.mail, 'token': action.data.token})
     case REGISTER_ERROR:        		
       return state;
     case AUTHENTICATE_SUCCESS:       
@@ -17,7 +17,7 @@ function user(state = {}, action) {
       return state;
     case LOGIN_SUCCESS:
       // console.log(action.data)
-      return Object.assign({}, state, {'name': action.data.name, 'email': action.data.email});
+      return Object.assign({}, state, {'name' : action.data.name, 'email': action.data.mail, 'token': action.data.token})
     case LOG_OUT:
 
       return Object.assign({}, state, {'name': "", 'email': ""});

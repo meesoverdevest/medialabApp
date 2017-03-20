@@ -5,35 +5,38 @@ import { Actions } from 'react-native-router-flux';
 
 import { EMPTY_INPUTS } from '../../action_types/inputs';
 
-export const register = (mail, pass) => {
+export const register = (inputs) => {
+
+	var payload = {};
+	var keys = [];
+
+	for( let [key, value] of Object.entries(inputs)) {
+		payload[key.substr(key.indexOf("-") + 1)] = value.value;
+		keys.push(key);
+	}
+
 	return (dispatch) => {
 		// Actions.refresh();
 		dispatch({ type: START_LOADING })	
 		
-		// let params = {
-		// 	method: 'GET',
-		// 	headers: {
-  //       'Authorization': 'Bearer ' + user.token,
-  //   	}
-		// };
+		let params = {
+		    method: "POST",
+		    body: JSON.stringify( payload ),
+		    headers: {
+	        'Content-Type': 'application/json',
+	    	},
+		}
 
-		// return fetch('http://ff.app/api/test', params)
-			// .then(response =>	response)
-			// .then(response => dispatch(login_success(response)))
-			// .catch(err => dispatch(login_error(err)));
-
-		// AFTER REGISTER
-		dispatch({type: EMPTY_INPUTS, keys: ["RegisterScene-name", "RegisterScene-mail", "RegisterScene-pass", "RegisterScene-neighbourhood"]});
-		return dispatch(register_success(
-					{email: mail, pass: pass},
-					dispatch
-				)
-			);
+		return fetch('https://teamstack.nl/api/register', params)
+			.then(response =>	response.json())
+			.then(response => dispatch(register_success(response, dispatch, keys)))
+			.catch(err => dispatch(register_error(err, dispatch)));
 	}
 }
 
-function register_success(data, dispatch){
+function register_success(data, dispatch, keys){
 	dispatch({type: DONE_LOADING})
+	dispatch({type: EMPTY_INPUTS, keys: keys})
 	// console.log(data);
 	
 	return {
@@ -44,7 +47,6 @@ function register_success(data, dispatch){
 
 function register_error(data, dispatch){
 	dispatch({type: DONE_LOADING})
-	console.log(data);
 	
 	return {
 		type: REGISTER_ERROR,
