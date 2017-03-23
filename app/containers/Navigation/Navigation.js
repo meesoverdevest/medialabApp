@@ -8,6 +8,7 @@ import WijkenScene from '../WijkenScene';
 import ScannerScene from '../ScannerScene';
 import AuthenticateScene from './AuthenticateScene';
 import RegisterScene from './RegisterScene';
+import AdjustmentsScene from '../AdjustmentsScene';
 
 import MyDrawer from './Drawer';
 
@@ -53,6 +54,12 @@ const Navigation = (state) => {
             <Scene key="homeScene"
                 component={HomeScene}
                 title="Home"
+                icon={TabIcon}
+              />
+
+            <Scene key="adjustmentsScene"
+                component={AdjustmentsScene}
+                title="Wijzigingen"
                 icon={TabIcon}
               />
 

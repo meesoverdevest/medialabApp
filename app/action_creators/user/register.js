@@ -1,7 +1,6 @@
 
 import { START_LOADING, ERROR_LOADING, DONE_LOADING } from '../../action_types/loading';
 import { REGISTER, REGISTER_SUCCESS, REGISTER_ERROR } from '../../action_types/user';
-import { Actions } from 'react-native-router-flux';
 
 import { EMPTY_INPUTS } from '../../action_types/inputs';
 
@@ -16,7 +15,6 @@ export const register = (inputs) => {
 	}
 
 	return (dispatch) => {
-		// Actions.refresh();
 		dispatch({ type: START_LOADING })	
 		
 		let params = {
