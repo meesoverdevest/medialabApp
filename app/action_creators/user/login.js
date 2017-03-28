@@ -23,7 +23,7 @@ export const login = (email, pass, fields) => {
    //  	}
 		};
 
-		return fetch('https://teamstack.nl/api/login', params)
+		return fetch('http://medialab.mefolio.nl/api/login', params)
 			.then(response =>	response.json())
 			.then(response => dispatch(login_success(response, dispatch, fields)))
 			.catch(err => dispatch(login_error(err, dispatch)));

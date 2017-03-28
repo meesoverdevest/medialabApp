@@ -9,6 +9,7 @@ import ScannerScene from '../ScannerScene';
 import AuthenticateScene from './AuthenticateScene';
 import RegisterScene from './RegisterScene';
 import AdjustmentsScene from '../AdjustmentsScene';
+import AdjustmentScene from '../Adjustments/AdjustmentScene';
 
 import MyDrawer from './Drawer';
 
@@ -70,6 +71,14 @@ const Navigation = (state) => {
               component={ScannerScene}
               title="QR Scanner"
               hideNavBar
+            />
+
+            <Scene
+              key="adjustmentScene"
+              direction="vertical"
+              schema="modal"
+              component={AdjustmentScene}
+              title="Wijziging"
             />      
           </Scene>
         </Scene>

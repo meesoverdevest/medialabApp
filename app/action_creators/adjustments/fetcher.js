@@ -7,7 +7,7 @@ export const fetch_adjustments = () => {
 		// Actions.refresh();
 		dispatch({ type: START_LOADING })	
 		
-		return fetch('https://teamstack.nl/api/adjustments')
+		return fetch('http://medialab.mefolio.nl/api/adjustments')
 			.then(response =>	response.json())
 			.then(response => dispatch(register_success(response, dispatch)))
 			.catch(err => dispatch(register_error(err, dispatch)));

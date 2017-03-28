@@ -25,7 +25,7 @@ export const register = (inputs) => {
 	    	},
 		}
 
-		return fetch('https://teamstack.nl/api/register', params)
+		return fetch('http://medialab.mefolio.nl/api/register', params)
 			.then(response =>	response.json())
 			.then(response => dispatch(register_success(response, dispatch, keys)))
 			.catch(err => dispatch(register_error(err, dispatch)));

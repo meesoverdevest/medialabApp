@@ -5,8 +5,9 @@ import {
   Text,
   StyleSheet,
   Image,
-  ListView 
+  TouchableHighlight 
 } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 
 const styles = StyleSheet.create({
   container: {
@@ -20,6 +21,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   text_container: {
+    flex: 1,
+    flexDirection: 'row',
     alignSelf: "stretch",
     alignItems: 'center',
     backgroundColor: '#6495ed',
@@ -38,16 +41,21 @@ const styles = StyleSheet.create({
 });
 
 const AdjustmentRow = (props) => {
-console.log(props);
+
+  let showAdjustment = () => {
+    console.log('asd')
+    Actions.adjustmentScene(props);
+  }
+
   return (
-    <View style={styles.container}>
+    <TouchableHighlight style={styles.container} onPress={() => showAdjustment()}>
       <View style={styles.text_container}>
-        <Text style={styles.text}>
+        <Text style={styles.text} numberOfLines={3}>
           {`${props.title}`}{`\n`}
           {`${props.description}`}
         </Text>
       </View>
-    </View>
+    </TouchableHighlight>
   );
 }
 export default AdjustmentRow;
