@@ -1,5 +1,5 @@
 
-import { ADJUSTMENTS_FETCHED, ADJUSTMENTS_ERROR  } from '../action_types/adjustments'
+import { ADJUSTMENTS_FETCHED, ADJUSTMENTS_ERROR  } from '../../action_types/adjustments'
 
 function adjustments(state = {}, action) {
 

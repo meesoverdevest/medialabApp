@@ -9,12 +9,24 @@ export const fetch_adjustments = () => {
 		
 		return fetch('http://medialab.mefolio.nl/api/adjustments')
 			.then(response =>	response.json())
+			.then(response => dispatch(adjustment_success(response, dispatch)))
+			.catch(err => dispatch(adjustment_error(err, dispatch)));
+	}
+}
+
+export const fetch_adjustment = () => {
+	return (dispatch) => {
+		// Actions.refresh();
+		dispatch({ type: START_LOADING })	
+		
+		return fetch('http://medialab.mefolio.nl/api/adjustments')
+			.then(response =>	response.json())
 			.then(response => dispatch(register_success(response, dispatch)))
 			.catch(err => dispatch(register_error(err, dispatch)));
 	}
 }
 
-function register_success(data, dispatch){
+function adjustment_success(data, dispatch){
 	dispatch({type: DONE_LOADING})
 	
 	return {
@@ -23,7 +35,7 @@ function register_success(data, dispatch){
 	}
 }
 
-function register_error(data, dispatch){
+function adjustment_error(data, dispatch){
 	dispatch({type: DONE_LOADING})
 	
 	return {

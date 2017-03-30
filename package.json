@@ -26,6 +26,7 @@
     "jest": "18.1.0",
     "react-native-camera": "^0.6.0",
     "react-native-loading-spinner-overlay": "^0.4.1",
+    "react-native-maps": "^0.13.1",
     "react-test-renderer": "~15.4.0"
   },
   "jest": {

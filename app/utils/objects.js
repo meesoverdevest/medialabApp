@@ -19,3 +19,15 @@ export const arrayIfy = (obj) => {
 	}
 	return arr;
 }
+
+export const getObjectWithId = (obj, id) => {
+	let keys = Object.keys(obj)
+	
+	for (let key in keys) {
+		if(obj[key].id === id) {
+			return obj[key];
+		}
+	}
+
+	return false;
+}

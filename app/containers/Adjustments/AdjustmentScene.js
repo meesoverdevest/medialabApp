@@ -12,18 +12,26 @@ import {
 // import Loader from '../components/Loader';
 // import { arrayIfy } from '../utils/objects'
 
-// import { fetch_adjustments } from '../action_creators/adjustments/fetcher'
+import { fetch_adjustment } from '../../action_creators/adjustments/fetcher'
+import { getObjectWithId } from '../../utils/objects'
 
 const AdjustmentScene = (props) => {
+  let obj = {}
 
-console.log(props);
+  if(props.selected !== null) {
+    obj = getObjectWithId(props.adjustments, props.selected)
+  }
   // https://medium.com/differential/react-native-basics-how-to-use-the-listview-component-a0ec44cf1fe8#.if25xvigb
   return (
     <View style={styles.container}>
+      <View style={styles.title_container}>
+        <Text style={styles.title_text}>
+          {`${obj.title}`}
+        </Text>
+      </View>
       <View style={styles.text_container}>
-        <Text style={styles.text} numberOfLines={3}>
-          {`${props.title}`}{`\n`}
-          {`${props.description}`}
+        <Text style={styles.text}>
+          {`${obj.description}`}
         </Text>
       </View>
     </View>
@@ -33,13 +41,16 @@ console.log(props);
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 12,
-    // flexDirection: 'row',
-    alignItems: 'center',
   },
-  img_container: {
-    flex: 1,
+  title_container: {
     flexDirection: 'row',
+    backgroundColor: '#333333',
+  },
+  title_text: {
+    color: '#FFFFFF',
+    fontSize: 28,
+    marginTop: 70,
+    padding: 10,
   },
   text_container: {
     flex: 1,
@@ -52,7 +63,7 @@ const styles = StyleSheet.create({
     marginLeft: 12,
     marginTop: 10,
     marginBottom: 10,
-    fontSize: 22,
+    fontSize: 20,
     color: '#f0f8ff',
   },
   photo: {
@@ -61,19 +72,20 @@ const styles = StyleSheet.create({
   }
 });
 
-// const mapDispatchToProps = {
-//   fetch_adjustments
-// } 
+const mapDispatchToProps = {
+  fetch_adjustment
+} 
 
-// const mapStateToProps = (state, ownProps = {}) => {
-//   return {
-//     adjustments: state.adjustments,
-//   }
-// }
+const mapStateToProps = (state, ownProps = {}) => {
+  return {
+    adjustments: state.adjustments,
+    selected: state.selected_adjustment
+  }
+}
 
-// AdjustmentScene = connect(
-//   mapStateToProps,
-//   mapDispatchToProps
-// )(AdjustmentScene)
+AdjustmentScene = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AdjustmentScene)
 
 export default AdjustmentScene;

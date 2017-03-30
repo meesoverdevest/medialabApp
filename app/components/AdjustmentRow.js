@@ -1,4 +1,4 @@
-
+import { connect } from 'react-redux'
 import React from 'react';
 import { 
   View,
@@ -8,6 +8,27 @@ import {
   TouchableHighlight 
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+
+import { set_selected_adjustment } from '../action_creators/adjustments/select'
+
+const AdjustmentRow = (props) => {
+
+  let showAdjustment = () => {
+    props.set_selected_adjustment(props.id);
+    Actions.adjustmentScene();
+  }
+
+  return (
+    <TouchableHighlight style={styles.container} onPress={() => showAdjustment()}>
+      <View style={styles.text_container}>
+        <Text style={styles.text} numberOfLines={3}>
+          {`${props.title}`}{`\n`}
+          {`${props.description}`}
+        </Text>
+      </View>
+    </TouchableHighlight>
+  );
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -40,22 +61,13 @@ const styles = StyleSheet.create({
   },
 });
 
-const AdjustmentRow = (props) => {
+const mapDispatchToProps = {
+  set_selected_adjustment
+} 
 
-  let showAdjustment = () => {
-    console.log('asd')
-    Actions.adjustmentScene(props);
-  }
+AdjustmentRow = connect(
+  null,
+  mapDispatchToProps
+)(AdjustmentRow)
 
-  return (
-    <TouchableHighlight style={styles.container} onPress={() => showAdjustment()}>
-      <View style={styles.text_container}>
-        <Text style={styles.text} numberOfLines={3}>
-          {`${props.title}`}{`\n`}
-          {`${props.description}`}
-        </Text>
-      </View>
-    </TouchableHighlight>
-  );
-}
 export default AdjustmentRow;
