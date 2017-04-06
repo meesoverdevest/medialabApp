@@ -31,3 +31,15 @@ export const getObjectWithId = (obj, id) => {
 
 	return false;
 }
+
+export const getReactionsForAdjustment = (obj, id) => {
+	let keys = Object.keys(obj)
+
+	for (let i = 0; i < keys.length; i++) {
+		if(keys[i] == id) {
+			return obj[keys[i]];
+		}
+	}
+
+	return false;
+}

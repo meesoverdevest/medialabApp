@@ -11,7 +11,7 @@ function creating_reaction(state = false, action) {
     console.log(action.data)   		
       return false
     case REACTION_CREATED_ERROR:
-    	console.error('fetch failed')
+    	console.log('Reaction creation failed')
     	return state;
     default:
       return state;

@@ -17,10 +17,8 @@ import { fetch_adjustments } from '../action_creators/adjustments/fetcher'
 const AdjustmentsScene = (state) => {
 
   if(Object.keys(state.adjustments).length === 0){
-    state.fetch_adjustments();
-  }
-
-  
+    state.fetch_adjustments(state.user.token);
+  }  
   
   const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
   let dataSource = ds.cloneWithRows(state.adjustments)
@@ -52,6 +50,7 @@ const mapDispatchToProps = {
 const mapStateToProps = (state, ownProps = {}) => {
   return {
     adjustments: state.adjustments,
+    user: state.user,
   }
 }
 

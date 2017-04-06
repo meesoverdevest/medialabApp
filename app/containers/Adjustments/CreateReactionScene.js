@@ -8,6 +8,8 @@ import {
   TextInput
 } from 'react-native';
 
+import { Actions } from 'react-native-router-flux';
+
 import { getObjectWithId } from '../../utils/objects'
 import { create_reaction } from '../../action_creators/adjustments/create_reaction'
 
@@ -27,7 +29,8 @@ const CreateReactionScene = (state) => {
   }
 
   let submitReaction = (input) => {
-    state.create_reaction(input, obj.id, fieldNames);
+    state.create_reaction(input, obj.id, fieldNames, state.user.token);
+    Actions.adjustmentsScene();
   }
 
   // https://medium.com/differential/react-native-basics-how-to-use-the-listview-component-a0ec44cf1fe8#.if25xvigb
@@ -89,7 +92,8 @@ const mapStateToProps = (state, ownProps = {}) => {
   return {
     adjustments: state.adjustments,
     selected: state.selected_adjustment,
-    inputs: state.inputs
+    inputs: state.inputs,
+    user: state.user,
   }
 }
 
