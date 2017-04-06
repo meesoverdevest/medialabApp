@@ -5,15 +5,21 @@ import {
   Text,
   View,
   Button,
-  ListView
+  ListView,
+  Dimensions
 } from 'react-native';
 
 import { Actions } from 'react-native-router-flux';
 import ReactionRow from '../../components/ReactionRow';
 
+import MapView from 'react-native-maps';
+
 import { getObjectWithId, getReactionsForAdjustment } from '../../utils/objects'
 import { set_selected_adjustment } from '../../action_creators/adjustments/select'
 import { fetch_reactions } from '../../action_creators/reactions/fetcher'
+
+const { width, height } = Dimensions.get('window');
+const SCREEN_WIDTH = width;
 
 const AdjustmentScene = (state) => {
   let obj = {}
@@ -60,6 +66,17 @@ const AdjustmentScene = (state) => {
           title="Reageer op wijziging"
           backgroundColor="orange"
         />
+        <View style={{ position: 'relative', height: 150}}>
+           <MapView
+            initialRegion={{
+              latitude: 52.3702160,
+              longitude: 4.8951680,
+              latitudeDelta: 0.0922,
+              longitudeDelta: 0.0421,
+            }}
+            style={{ left:0, right: 0, top:0, bottom: 0, position: 'absolute' }}
+          />
+        </View>
        <ListView
           style={styles.container}
           dataSource={dataSource}
@@ -94,6 +111,15 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     fontSize: 20,
     color: '#f0f8ff',
+  },
+  map: {
+    // position: 'absolute',
+    // top: 0,
+    // right: 0,
+    // left: 0,
+    // bottom: 0,
+    height: 150,
+    width: SCREEN_WIDTH,
   }
 });
 
