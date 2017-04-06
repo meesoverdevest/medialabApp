@@ -7,6 +7,7 @@ import {
   Image,
   TouchableHighlight 
 } from 'react-native';
+
 import { Actions } from 'react-native-router-flux';
 
 import { set_selected_adjustment } from '../action_creators/adjustments/select'

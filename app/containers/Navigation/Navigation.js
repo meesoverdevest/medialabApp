@@ -10,6 +10,7 @@ import AuthenticateScene from './AuthenticateScene';
 import RegisterScene from './RegisterScene';
 import AdjustmentsScene from '../AdjustmentsScene';
 import AdjustmentScene from '../Adjustments/AdjustmentScene';
+import CreateReactionScene from '../Adjustments/CreateReactionScene';
 
 import MyDrawer from './Drawer';
 
@@ -79,6 +80,12 @@ const Navigation = (state) => {
               schema="modal"
               component={AdjustmentScene}
               title="Wijziging"
+            />      
+
+            <Scene
+              key="createReactionScene"
+              component={CreateReactionScene}
+              title="Reageren op wijziging"
             />      
           </Scene>
         </Scene>

@@ -7,21 +7,23 @@ import {
   Button
 } from 'react-native';
 
-// import { Actions } from 'react-native-router-flux';
-// import AdjustmentRow from '../components/AdjustmentRow';
-// import Loader from '../components/Loader';
-// import { arrayIfy } from '../utils/objects'
+import { Actions } from 'react-native-router-flux';
 
-import { fetch_adjustment } from '../../action_creators/adjustments/fetcher'
 import { getObjectWithId } from '../../utils/objects'
+import { set_selected_adjustment } from '../../action_creators/adjustments/select'
 
-const AdjustmentScene = (props) => {
+const AdjustmentScene = (state) => {
   let obj = {}
 
-  if(props.selected !== null) {
-    obj = getObjectWithId(props.adjustments, props.selected)
+  if(state.selected !== null) {
+    obj = getObjectWithId(state.adjustments, state.selected)
+  }
+
+  let onPressReact = () => {
+    Actions.createReactionScene();
   }
   // https://medium.com/differential/react-native-basics-how-to-use-the-listview-component-a0ec44cf1fe8#.if25xvigb
+  // Show listview with reactions
   return (
     <View style={styles.container}>
       <View style={styles.title_container}>
@@ -31,9 +33,14 @@ const AdjustmentScene = (props) => {
       </View>
       <View style={styles.text_container}>
         <Text style={styles.text}>
-          {`${obj.description}`}
+          Beschrijving: {`${obj.description}`}
         </Text>
       </View>
+      <Button
+        onPress={() => onPressReact()}
+        title="Reageer op wijziging"
+        backgroundColor="orange"
+      />
     </View>
   );
 }
@@ -53,10 +60,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   text_container: {
-    flex: 1,
     flexDirection: 'row',
-    alignSelf: "stretch",
-    alignItems: 'center',
     backgroundColor: '#6495ed',
   },
   text: {
@@ -65,16 +69,8 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     fontSize: 20,
     color: '#f0f8ff',
-  },
-  photo: {
-    flex:1,
-    height: 150,
   }
 });
-
-const mapDispatchToProps = {
-  fetch_adjustment
-} 
 
 const mapStateToProps = (state, ownProps = {}) => {
   return {
@@ -85,7 +81,7 @@ const mapStateToProps = (state, ownProps = {}) => {
 
 AdjustmentScene = connect(
   mapStateToProps,
-  mapDispatchToProps
+  null
 )(AdjustmentScene)
 
 export default AdjustmentScene;
