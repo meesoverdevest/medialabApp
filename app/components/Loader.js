@@ -3,7 +3,8 @@ import React from 'react'
 import {
   StyleSheet,
   View,
-  Text
+  Text,
+  Image
 } from 'react-native';
 
 // import Spinner from 'react-native-spinkit'
@@ -17,10 +18,8 @@ const Loader = () => {
   return (
     <View style={styles.container}>
       <StatusBar hidden={true} />
-      <Text style={styles.title}>
-        Participair
-      </Text>
       <Spinner visible={true} size="large" />
+      <Image style={styles.logo} source={require('../assets/logo_green.png')} />
     </View>
   )
 }
@@ -30,7 +29,7 @@ var styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#ecf0f1',
+    backgroundColor: '#FFFFFF',
   },
   title:{
     fontSize: 36,
@@ -38,7 +37,10 @@ var styles = StyleSheet.create({
     color: '#3498db'
   },
   spinner: {
-    marginBottom: 50
+    marginTop: 20
+  },
+  logo: {
+
   }
 });
 

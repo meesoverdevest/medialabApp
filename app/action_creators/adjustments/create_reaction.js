@@ -41,7 +41,6 @@ function create_success(data, dispatch, keys){
 
 function create_error(data, dispatch){
 	dispatch({type: DONE_LOADING})
-	console.log(data);
 	
 	return {
 		type: REACTION_CREATED_ERROR,

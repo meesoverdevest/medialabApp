@@ -6,11 +6,14 @@ import {
   View,
   Button,
   ListView,
-  Dimensions
+  Dimensions,
+  ScrollView
 } from 'react-native';
 
 import { Actions } from 'react-native-router-flux';
 import ReactionRow from '../../components/ReactionRow';
+
+import Loader from '../../components/Loader';
 
 import MapView from 'react-native-maps';
 
@@ -51,37 +54,48 @@ const AdjustmentScene = (state) => {
   } else {
     return (
       <View style={styles.container}>
-        <View style={styles.title_container}>
-          <Text style={styles.title_text}>
-            {`${obj.title}`}
-          </Text>
-        </View>
-        <View style={styles.text_container}>
-          <Text style={styles.text}>
-            Beschrijving: {`${obj.description}`}
-          </Text>
-        </View>
-        <Button
-          onPress={() => onPressReact()}
-          title="Reageer op wijziging"
-          backgroundColor="orange"
-        />
-        <View style={{ position: 'relative', height: 150}}>
-           <MapView
-            initialRegion={{
-              latitude: 52.3702160,
-              longitude: 4.8951680,
-              latitudeDelta: 0.0922,
-              longitudeDelta: 0.0421,
-            }}
-            style={{ left:0, right: 0, top:0, bottom: 0, position: 'absolute' }}
+        <ScrollView>
+          <View style={styles.title_container}>
+            <Text style={styles.title_text}>
+              {`${obj.title}`}
+            </Text>
+          </View>
+          <View style={styles.text_container}>
+            <Text style={styles.text}>
+              Beschrijving: {`${obj.description}`}
+            </Text>
+          </View>
+          <Button
+            onPress={() => onPressReact()}
+            title="Reageer op wijziging"
+            backgroundColor="orange"
           />
-        </View>
-       <ListView
-          style={styles.container}
-          dataSource={dataSource}
-          renderRow={(data) => <ReactionRow {...data} />}
-        />
+          <View style={{ position: 'relative', height: 150}}>
+             <MapView
+              initialRegion={{
+                latitude: 51.92442,
+                longitude: 4.477733,
+                latitudeDelta: 0.0922,
+                longitudeDelta: 0.0421,
+              }}
+              style={{ left:0, right: 0, top:0, bottom: 0, position: 'absolute' }}
+            >
+              <MapView.Marker
+                coordinate={{
+                  latitude: 51.92442,
+                  longitude: 4.477733
+                }}
+                title={`${obj.title}`}
+                description={`${obj.description}`}
+              />
+            </MapView>
+          </View>
+         <ListView
+            style={styles.container}
+            dataSource={dataSource}
+            renderRow={(data) => <ReactionRow {...data} />}
+          />
+        </ScrollView>
       </View>
     );
   }

@@ -17,23 +17,32 @@ import MyDrawer from './Drawer';
 import {
   StyleSheet,
   View,
-  Text
+  Text,
+  Image
 } from 'react-native';
 
 const Navigation = (state) => {
+  let iconPaths = {
+    Events:  require('../../assets/icons/events.png'),
+    Home: require('../../assets/icons/home.png'),
+    Wijzigingen: require('../../assets/icons/overview.png'),
+    Scan: require('../../assets/icons/scan.png')
+  };
+  
 
   const TabIcon = ({ selected, title }) => {
-    let tabStyles = StyleSheet.flatten([styles.tabIcon, {backgroundColor: selected ? 'orange' : 'black'}]);
+    let tabStyles = StyleSheet.flatten({backgroundColor: selected ? 'white' : 'transparent', padding: 10});
+
     return (
-      <Text pointerEvents="none" style={tabStyles}>
-        {title}
-      </Text>
+      <View style={tabStyles}>
+      <Image source={iconPaths[title]}/>
+      </View>
     );
   }
 
   return(
 
-    <Router>
+    <Router drawerImage={require('../../assets/icons/hamburger_sm.png')} navigationBarStyle={styles.navBar} titleStyle={styles.navTitle}>
       <Scene key="root"
         component={connect(state=>({profile:state.user}))(Switch)}
         tabs={true}
@@ -44,11 +53,11 @@ const Navigation = (state) => {
         <Scene key="drawer" title="Menu" component={MyDrawer} open={false}>   
           <Scene key="tabbar1"
             tabs
-            tabBarStyle={{ backgroundColor: '#6495ed'}}
+            tabBarStyle={{ backgroundColor: '#188834'}}
             >
             <Scene key="wijkenScene"
               component={WijkenScene}
-              title="Wijken"
+              title="Events"
               icon={TabIcon}
               initial
              />
@@ -68,10 +77,9 @@ const Navigation = (state) => {
             <Scene
               key="scannerScene"
               direction="vertical"
-              schema="modal"
               component={ScannerScene}
-              title="QR Scanner"
-              hideNavBar
+              title="Scan"
+              icon={TabIcon}
             />
 
             <Scene
@@ -91,7 +99,7 @@ const Navigation = (state) => {
         </Scene>
         <Scene key="tabbar"
           tabs
-          tabBarStyle={{ backgroundColor: '#6495ed'}}
+          tabBarStyle={{ backgroundColor: '#188834'}}
           >
           <Scene key="registerScene"
               component={RegisterScene}
@@ -136,10 +144,12 @@ var styles = StyleSheet.create({
     shadowOpacity: 0.8, 
     shadowRadius: 3
   },
-  tabIcon: {
+  navBar: {
+    flex: 1,
+    backgroundColor: '#188834', 
+  },
+  navTitle: {
     color: 'white', 
-    fontWeight: 'bold', 
-    padding: 15, 
   }
 });
 

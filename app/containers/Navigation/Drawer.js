@@ -5,7 +5,7 @@ import ControlPanel from './ControlPanel';
 import {Actions, DefaultRenderer} from 'react-native-router-flux';
 
 let MyDrawer = (state) => {
-
+  //https://github.com/aksonov/react-native-router-flux/issues/1101
   let onOpen = () => {
     Actions.refresh({key:state.name, open: true})
   }
@@ -39,9 +39,8 @@ let MyDrawer = (state) => {
       openDrawerOffset={0.2}
       panCloseMask={0.2}
       negotiatePan={true}
-      tweenHandler={(ratio) => ({
-        main: { opacity:Math.max(0.54,1-ratio) }
-      })}>
+      tweenHandler={Drawer.tweenPresets.parallax}>
+      
       <DefaultRenderer
         navigationState={state.children[0]}
         onNavigate={state.onNavigate}
