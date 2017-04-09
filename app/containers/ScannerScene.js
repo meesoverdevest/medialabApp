@@ -14,6 +14,7 @@ import Permissions from 'react-native-permissions';
 import { set_barcode_data } from '../action_creators/barcodes'
 import { set_cam_prop } from '../action_creators/camera'
 import { request_permission, check_permission } from '../action_creators/user/permissions'
+import { set_selected_adjustment } from '../action_creators/adjustments/select'
 
 import Loader from '../components/Loader';
 
@@ -63,7 +64,16 @@ const ScannerScene = (state) => {
   let barcodeReceived = (e) => {
     state.set_cam_prop('torchMode', 'off')
     state.set_barcode_data(e.data, e.type)
-    Actions.scannerScene()
+
+    let adjustmentId = 0;
+    var match = e.data.match(/^([a-zA-Z]+)([0-9]+)$/);
+    if ( match ) {
+      adjustmentId = match[1] + (parseInt(match[2]) + 1, 10);
+    }
+
+    state.set_selected_adjustment(adjustmentId)
+
+    Actions.adjustmentScene()
   }
       // {state.permissions.camera != 'authorized' ? (<Text style={styles.welcome}>
       //   Unauthorized
@@ -83,7 +93,8 @@ const mapDispatchToProps = {
   set_barcode_data,
   set_cam_prop,
   request_permission,
-  check_permission
+  check_permission,
+  set_selected_adjustment
 } 
 
 const mapStateToProps = (state, ownProps = {}) => {

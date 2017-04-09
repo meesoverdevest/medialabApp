@@ -43,3 +43,48 @@ export const getReactionsForAdjustment = (obj, id) => {
 
 	return false;
 }
+
+export const getVotesForReaction = (obj, id) => {
+	let downvotes = [];
+	let upvotes = [];
+	let total = 0;
+
+	let keys = Object.keys(obj)
+
+	for (let i = 0; i < keys.length; i++) {
+		// console.log(obj[keys[i]][0])
+		// console.log(obj[keys[i]][0].reaction_id)
+		if(obj[keys[i]][0].reaction_id === id) {
+			total++;
+
+			if(obj[keys[i]][0].vote === 1){
+				upvotes.push(obj[keys[i]][0]);
+			} else {
+				downvotes.push(obj[keys[i]][0]);
+			}
+			
+		}
+	}
+
+	let returnObj = {
+		upvotes: upvotes,
+		downvotes: downvotes,
+		total: total
+	};
+
+	return returnObj;
+}
+
+export const hasUserVotedOnReaction = (votes, user_id, reaction) => {
+	let keys = Object.keys(votes)
+
+	for (let i = 0; i < keys.length; i++) {
+		if(votes[i].reaction_id === reaction.id) {
+			if(votes[i].user_id === user_id) {
+				return true;
+			}
+		}
+	}
+
+	return false;
+}

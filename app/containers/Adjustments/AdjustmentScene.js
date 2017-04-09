@@ -17,9 +17,10 @@ import Loader from '../../components/Loader';
 
 import MapView from 'react-native-maps';
 
-import { getObjectWithId, getReactionsForAdjustment } from '../../utils/objects'
+import { getObjectWithId, getReactionsForAdjustment, hasUserVotedOnReaction } from '../../utils/objects'
 import { set_selected_adjustment } from '../../action_creators/adjustments/select'
 import { fetch_reactions } from '../../action_creators/reactions/fetcher'
+import { fetch_votes } from '../../action_creators/reactions/votes_fetcher'
 
 const { width, height } = Dimensions.get('window');
 const SCREEN_WIDTH = width;
@@ -32,11 +33,23 @@ const AdjustmentScene = (state) => {
     obj = getObjectWithId(state.adjustments, state.selected)
   }
 
+  if(Object.keys(state.votes).length === 0){
+    state.fetch_votes(state.user.token);
+  }
+
   if(Object.keys(state.reactions).length === 0){
     state.fetch_reactions(state.user.token);
-  } else {
+  }
+
+  if(Object.keys(state.reactions).length !== 0 && Object.keys(state.votes).length !== 0){
+
     reactions = getReactionsForAdjustment(state.reactions, obj.id)
-    console.log(reactions)
+
+    for (var i = reactions.length - 1; i >= 0; i--) {
+      let hasVoted = hasUserVotedOnReaction(state.votes[reactions[i].id], state.user.id, reactions[i]);
+      
+      reactions[i].hasVoted = hasVoted;
+    }
   }
 
   let onPressReact = () => {
@@ -45,16 +58,15 @@ const AdjustmentScene = (state) => {
   // https://medium.com/differential/react-native-basics-how-to-use-the-listview-component-a0ec44cf1fe8#.if25xvigb
   // Show listview with reactions
 
-
   const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
   let dataSource = ds.cloneWithRows(reactions)
   // https://medium.com/differential/react-native-basics-how-to-use-the-listview-component-a0ec44cf1fe8#.if25xvigb
-  if(Object.keys(reactions).length === 0){
+  if(Object.keys(state.reactions).length === 0 && Object.keys(state.votes).length === 0){
     return (<Loader/>)  
   } else {
     return (
       <View style={styles.container}>
-        <ScrollView>
+        <ScrollView style={styles.scrollView}>
           <View style={styles.title_container}>
             <Text style={styles.title_text}>
               {`${obj.title}`}
@@ -127,13 +139,11 @@ const styles = StyleSheet.create({
     color: '#f0f8ff',
   },
   map: {
-    // position: 'absolute',
-    // top: 0,
-    // right: 0,
-    // left: 0,
-    // bottom: 0,
     height: 150,
     width: SCREEN_WIDTH,
+  },
+  scrollView: {
+    marginBottom: 40
   }
 });
 
@@ -142,12 +152,14 @@ const mapStateToProps = (state, ownProps = {}) => {
     adjustments: state.adjustments,
     selected: state.selected_adjustment,
     reactions: state.reactions,
-    user: state.user
+    user: state.user,
+    votes: state.votes
   }
 }
 
 const mapDispatchToProps = {
-  fetch_reactions
+  fetch_reactions,
+  fetch_votes
 } 
 
 AdjustmentScene = connect(

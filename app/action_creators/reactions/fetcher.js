@@ -21,6 +21,7 @@ export const fetch_reactions = (token) => {
 	}
 }
 
+
 function reaction_success(data, dispatch){
 	dispatch({type: DONE_LOADING})
 	

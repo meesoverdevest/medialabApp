@@ -23,15 +23,30 @@ import {
 
 const Navigation = (state) => {
   let iconPaths = {
-    Events:  require('../../assets/icons/events.png'),
-    Home: require('../../assets/icons/home.png'),
-    Wijzigingen: require('../../assets/icons/overview.png'),
-    Scan: require('../../assets/icons/scan.png')
+    Events:  require('../../assets/icons/event_icon.png'),
+    Home: require('../../assets/icons/home_icon.png'),
+    Wijzigingen: require('../../assets/icons/list_icon.png'),
+    Scan: require('../../assets/icons/scan_icon.png')
+  };
+
+  let blackIconPaths = {
+    Events:  require('../../assets/icons/event_icon_black.png'),
+    Home: require('../../assets/icons/home_icon_black.png'),
+    Wijzigingen: require('../../assets/icons/list_icon_black.png'),
+    Scan: require('../../assets/icons/scan_icon_black.png')
   };
   
 
   const TabIcon = ({ selected, title }) => {
-    let tabStyles = StyleSheet.flatten({backgroundColor: selected ? 'white' : 'transparent', padding: 10});
+    let tabStyles = StyleSheet.flatten({backgroundColor: selected ? 'white' : 'transparent', padding: 11});
+
+    if(selected === true) {
+      return (
+        <View style={tabStyles}>
+        <Image source={blackIconPaths[title]}/>
+        </View>
+      );      
+    }
 
     return (
       <View style={tabStyles}>
@@ -42,7 +57,7 @@ const Navigation = (state) => {
 
   return(
 
-    <Router drawerImage={require('../../assets/icons/hamburger_sm.png')} navigationBarStyle={styles.navBar} titleStyle={styles.navTitle}>
+    <Router drawerImage={require('../../assets/icons/sidebar_icon.png')} navigationBarStyle={styles.navBar} titleStyle={styles.navTitle}>
       <Scene key="root"
         component={connect(state=>({profile:state.user}))(Switch)}
         tabs={true}
