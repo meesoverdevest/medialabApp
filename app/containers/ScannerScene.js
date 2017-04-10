@@ -5,7 +5,8 @@ import {
   Text,
   View,
   Alert,
-  Button
+  Button,
+  Dimensions
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import Camera from 'react-native-camera';
@@ -49,12 +50,14 @@ const ScannerScene = (state) => {
       ref={(cam) => {
           this.camera = cam;
       }}
-      style={{height: 400}}
+      style={styles.camera}
       aspect={Camera.constants.Aspect.fit}
       torchMode={state.camera.torchMode}
       type={state.camera.cameraType}
       onBarCodeRead={(e) => barcodeReceived(e)}
-      />)
+      >
+      <Text style={styles.capture} ></Text>
+      </Camera>)
   } else {
 
     cam = (<Text>No cam</Text>);
@@ -66,10 +69,12 @@ const ScannerScene = (state) => {
     state.set_barcode_data(e.data, e.type)
 
     let adjustmentId = 0;
-    var match = e.data.match(/^([a-zA-Z]+)([0-9]+)$/);
-    if ( match ) {
-      adjustmentId = match[1] + (parseInt(match[2]) + 1, 10);
-    }
+    // var match = e.data.match(/^([a-zA-Z]+)([0-9]+)$/);
+    // if ( match ) {
+    //   adjustmentId = match[1] + (parseInt(match[2]) + 1, 10);
+    // }
+    console.log(e.data)
+    adjustmentId = e.data.replace('adjustment:', '');
 
     console.log('scan =' +adjustmentId);
 
@@ -81,12 +86,12 @@ const ScannerScene = (state) => {
       //   Unauthorized
       // </Text>) : (cam)}
 
+      // <View style={styles.statusBar}>
+      //   {mappedCodes}
+      // </View>
   return (
     <View style={styles.container}>
       {cam}
-      <View style={styles.statusBar}>
-        {mappedCodes}
-      </View>
     </View>
   );
 }
@@ -124,6 +129,26 @@ const styles = StyleSheet.create({
   statusBarText: {
     fontSize: 20,
   },
+  camera: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    height: Dimensions.get('window').height,
+    width: Dimensions.get('window').width
+  },
+  capture: {
+    position: 'absolute', 
+    top: 0, 
+    left: 0, 
+    right: 0, bottom: 0, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent',
+    // flex: 0,
+    // backgroundColor: '#fff',
+    borderRadius: 5,
+    borderColor: 'white',
+    // color: '#000',
+    padding: 50,
+    // margin: 40
+  }
 });
 
 ScannerScene = connect(

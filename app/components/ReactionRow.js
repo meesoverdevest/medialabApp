@@ -12,9 +12,11 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { Actions } from 'react-native-router-flux';
 
 import { submit_vote } from '../action_creators/reactions/vote'
+import { fetch_reactions } from '../action_creators/reactions/fetcher'
 import { getVotesForReaction } from '../utils/objects'
 
 const ReactionRow = (state) => {
+
   let voteState = false;
   let votes = getVotesForReaction(state.votes, state.id);
 
@@ -24,8 +26,9 @@ const ReactionRow = (state) => {
     }
 
     state.submit_vote(state.user.token, voteState, state.id);
+    state.method();
   }
-  console.log(state.hasVoted)
+
   if(state.hasVoted === true && votes.total > 0) {
     return (
       <View style={styles.container}>
@@ -112,7 +115,8 @@ const mapStateToProps = (state, ownProps = {}) => {
 }
 
 const mapDispatchToProps = {
-  submit_vote
+  submit_vote,
+  fetch_reactions
 } 
 
 ReactionRow = connect(

@@ -24,7 +24,7 @@ export const getObjectWithId = (obj, id) => {
 	let keys = Object.keys(obj)
 	
 	for (let key in keys) {
-		if(obj[key].id === id) {
+		if(obj[key].id === parseInt(id)) {
 			return obj[key];
 		}
 	}
@@ -34,12 +34,24 @@ export const getObjectWithId = (obj, id) => {
 
 export const getReactionsForAdjustment = (obj, id) => {
 	let keys = Object.keys(obj)
-
-	for (let i = 0; i < keys.length; i++) {
-		if(keys[i] == id) {
-			return obj[keys[i]];
+	for (let o in obj) {
+		// console.log(adjustment)
+		
+			// console.log(id)
+			// console.log(obj[o].adjustment_id)	
+		if(obj[o].adjustment_id === parseInt(id)){
+			if(obj[o].data.length !== 0){
+				return obj[o].data;
+			}
 		}
 	}
+	
+
+	// for (let i = 0; i < keys.length; i++) {
+	// 	if(obj[keys[i] == id) {
+	// 		return obj[keys[i]];
+	// 	}
+	// }
 
 	return false;
 }
@@ -77,7 +89,7 @@ export const getVotesForReaction = (obj, reaction_id) => {
 }
 
 export const hasUserVotedOnReaction = (obj, user_id, reaction) => {
-	let keys = Object.keys(obj)
+	// let keys = Object.keys(obj)
 
 	// for (let i = 0; i < keys.length; i++) {
 	// 	if(votes[i].reaction_id === reaction.id) {

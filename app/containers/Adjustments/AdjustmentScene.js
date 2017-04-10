@@ -21,6 +21,7 @@ import { getObjectWithId, getReactionsForAdjustment, hasUserVotedOnReaction } fr
 import { set_selected_adjustment } from '../../action_creators/adjustments/select'
 import { fetch_reactions } from '../../action_creators/reactions/fetcher'
 import { fetch_votes } from '../../action_creators/reactions/votes_fetcher'
+import { fetch_adjustments } from '../../action_creators/adjustments/fetcher'
 
 const { width, height } = Dimensions.get('window');
 const SCREEN_WIDTH = width;
@@ -29,8 +30,16 @@ const AdjustmentScene = (state) => {
   let obj = {}
   let reactions = {}
 
+  if(Object.keys(state.adjustments).length === 0){
+    state.fetch_adjustments(state.user.token);
+  }  
+
   if(state.selected !== null) {
     obj = getObjectWithId(state.adjustments, state.selected)
+
+    if(obj === undefined) {
+      state.fetch_adjustments(state.user.token);
+    }
   }
 
   if(Object.keys(state.votes).length === 0){
@@ -47,7 +56,18 @@ const AdjustmentScene = (state) => {
 
     for (var i = reactions.length - 1; i >= 0; i--) {
       let hasVoted = hasUserVotedOnReaction(state.votes[reactions[i].id], state.user.id, reactions[i]);
-        console.log(hasVoted)
+      reactions[i].hasVoted = hasVoted;
+    }
+  }
+
+  // Refresh reactions / votes
+  const onVote = () => {
+    state.fetch_votes(state.user.token);
+    state.fetch_reactions(state.user.token);
+    reactions = getReactionsForAdjustment(state.reactions, obj.id)
+
+    for (var i = reactions.length - 1; i >= 0; i--) {
+      let hasVoted = hasUserVotedOnReaction(state.votes[reactions[i].id], state.user.id, reactions[i]);
       reactions[i].hasVoted = hasVoted;
     }
   }
@@ -63,6 +83,53 @@ const AdjustmentScene = (state) => {
   // https://medium.com/differential/react-native-basics-how-to-use-the-listview-component-a0ec44cf1fe8#.if25xvigb
   if(Object.keys(state.reactions).length === 0 && Object.keys(state.votes).length === 0){
     return (<Loader/>)  
+  } else if(obj.lat !== null && obj.lon !== null) {
+    return (
+      <View style={styles.container}>
+        <ScrollView style={styles.scrollView}>
+          <View style={styles.title_container}>
+            <Text style={styles.title_text}>
+              {`${obj.title}`}
+            </Text>
+          </View>
+          <View style={styles.text_container}>
+            <Text style={styles.text}>
+              Beschrijving: {`${obj.description}`}
+            </Text>
+          </View>
+          <Button
+            onPress={() => onPressReact()}
+            title="Reageer op wijziging"
+            backgroundColor="orange"
+          />
+          <View style={{ position: 'relative', height: 150}}>
+             <MapView
+              initialRegion={{
+                latitude: parseFloat(obj.lat),
+                longitude: parseFloat(obj.lon),
+                latitudeDelta: 0.0922,
+                longitudeDelta: 0.0421,
+              }}
+              style={{ left:0, right: 0, top:0, bottom: 0, position: 'absolute' }}
+            >
+              <MapView.Marker
+                coordinate={{
+                  latitude: parseFloat(obj.lat),
+                  longitude: parseFloat(obj.lon)
+                }}
+                title={`${obj.title}`}
+                description={`${obj.description}`}
+              />
+            </MapView>
+          </View>
+         <ListView
+            style={styles.container}
+            dataSource={dataSource}
+            renderRow={(data) => <ReactionRow {...data} method={() => onVote()} />}
+          />
+        </ScrollView>
+      </View>
+    );
   } else {
     return (
       <View style={styles.container}>
@@ -105,7 +172,7 @@ const AdjustmentScene = (state) => {
          <ListView
             style={styles.container}
             dataSource={dataSource}
-            renderRow={(data) => <ReactionRow {...data} />}
+            renderRow={(data) => <ReactionRow {...data} method={() => onVote()} />}
           />
         </ScrollView>
       </View>
@@ -159,7 +226,8 @@ const mapStateToProps = (state, ownProps = {}) => {
 
 const mapDispatchToProps = {
   fetch_reactions,
-  fetch_votes
+  fetch_votes,
+  fetch_adjustments
 } 
 
 AdjustmentScene = connect(

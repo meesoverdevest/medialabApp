@@ -12,6 +12,7 @@ import { Actions } from 'react-native-router-flux';
 
 import { getObjectWithId } from '../../utils/objects'
 import { create_reaction } from '../../action_creators/adjustments/create_reaction'
+import { fetch_reactions } from '../../action_creators/reactions/fetcher'
 
 import { set_input_value } from '../../action_creators/inputs'
 import { isObjectEmpty } from '../../utils/objects'
@@ -30,7 +31,8 @@ const CreateReactionScene = (state) => {
 
   let submitReaction = (input) => {
     state.create_reaction(input, obj.id, fieldNames, state.user.token);
-    Actions.adjustmentsScene();
+    state.fetch_reactions(state.user.token);
+    Actions.adjustmentScene();
   }
 
   // https://medium.com/differential/react-native-basics-how-to-use-the-listview-component-a0ec44cf1fe8#.if25xvigb
@@ -99,7 +101,8 @@ const mapStateToProps = (state, ownProps = {}) => {
 
 const mapDispatchToProps = {
   create_reaction,
-  set_input_value
+  set_input_value,
+  fetch_reactions
 } 
 
 CreateReactionScene = connect(
