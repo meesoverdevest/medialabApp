@@ -25,8 +25,8 @@ const ReactionRow = (state) => {
 
     state.submit_vote(state.user.token, voteState, state.id);
   }
-
-  if(state.hasVoted === true) {
+  console.log(state.hasVoted)
+  if(state.hasVoted === true && votes.total > 0) {
     return (
       <View style={styles.container}>
         <View style={styles.text_container}>

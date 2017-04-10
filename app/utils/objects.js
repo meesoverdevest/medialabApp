@@ -44,25 +44,26 @@ export const getReactionsForAdjustment = (obj, id) => {
 	return false;
 }
 
-export const getVotesForReaction = (obj, id) => {
+export const getVotesForReaction = (obj, reaction_id) => {
 	let downvotes = [];
 	let upvotes = [];
 	let total = 0;
 
 	let keys = Object.keys(obj)
 
-	for (let i = 0; i < keys.length; i++) {
-		// console.log(obj[keys[i]][0])
-		// console.log(obj[keys[i]][0].reaction_id)
-		if(obj[keys[i]][0].reaction_id === id) {
-			total++;
+	for(let o in obj){
+		if(obj[o].length !== 0) {
+			for(let vote of obj[o]){
+				if(vote.reaction_id === reaction_id){
+					total++;
 
-			if(obj[keys[i]][0].vote === 1){
-				upvotes.push(obj[keys[i]][0]);
-			} else {
-				downvotes.push(obj[keys[i]][0]);
+					if(vote.vote === 1){
+						upvotes.push(vote);
+					} else {
+						downvotes.push(vote);
+					}
+				}
 			}
-			
 		}
 	}
 
@@ -75,13 +76,23 @@ export const getVotesForReaction = (obj, id) => {
 	return returnObj;
 }
 
-export const hasUserVotedOnReaction = (votes, user_id, reaction) => {
-	let keys = Object.keys(votes)
+export const hasUserVotedOnReaction = (obj, user_id, reaction) => {
+	let keys = Object.keys(obj)
 
-	for (let i = 0; i < keys.length; i++) {
-		if(votes[i].reaction_id === reaction.id) {
-			if(votes[i].user_id === user_id) {
-				return true;
+	// for (let i = 0; i < keys.length; i++) {
+	// 	if(votes[i].reaction_id === reaction.id) {
+	// 		if(votes[i].user_id === user_id) {
+	// 			return true;
+	// 		}
+	// 	}
+	// }
+
+	for(let votes in obj){
+		if(votes.length !== 0) {
+			for(let vote of votes){
+				if(vote.user_id === user_id){
+					return true;
+				}
 			}
 		}
 	}

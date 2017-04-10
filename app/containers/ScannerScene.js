@@ -71,6 +71,8 @@ const ScannerScene = (state) => {
       adjustmentId = match[1] + (parseInt(match[2]) + 1, 10);
     }
 
+    console.log('scan =' +adjustmentId);
+
     state.set_selected_adjustment(adjustmentId)
 
     Actions.adjustmentScene()

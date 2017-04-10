@@ -47,7 +47,7 @@ const AdjustmentScene = (state) => {
 
     for (var i = reactions.length - 1; i >= 0; i--) {
       let hasVoted = hasUserVotedOnReaction(state.votes[reactions[i].id], state.user.id, reactions[i]);
-      
+        console.log(hasVoted)
       reactions[i].hasVoted = hasVoted;
     }
   }
