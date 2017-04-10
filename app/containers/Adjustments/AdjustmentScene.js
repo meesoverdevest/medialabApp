@@ -126,6 +126,7 @@ const AdjustmentScene = (state) => {
             style={styles.container}
             dataSource={dataSource}
             renderRow={(data) => <ReactionRow {...data} method={() => onVote()} />}
+            enableEmptySections
           />
         </ScrollView>
       </View>
